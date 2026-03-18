@@ -22,7 +22,7 @@ export function SiteHeader({
   flags,
 }: {
   user: AppUser | null;
-  flags: { demoData: boolean; mockAI: boolean; mockEmail: boolean };
+  flags: { demoData: boolean; mockAI: boolean };
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -58,7 +58,6 @@ export function SiteHeader({
             <div className="flex flex-wrap gap-2">
               {flags.demoData ? <Badge variant="blue">Demo data</Badge> : null}
               {flags.mockAI ? <Badge variant="amber">Mock AI</Badge> : null}
-              {flags.mockEmail ? <Badge variant="default">Mock email</Badge> : null}
             </div>
 
             {user ? (
