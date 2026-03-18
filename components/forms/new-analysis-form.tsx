@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Bell, LoaderCircle, UploadCloud } from "lucide-react";
 
 import { ImageUploader } from "@/components/image-uploader";
@@ -44,7 +43,6 @@ export function NewAnalysisForm({
   cases: DashboardCase[];
   selectedCase?: DashboardCase | null;
 }) {
-  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formState, setFormState] = useState<IntakeFormState>(
@@ -52,7 +50,7 @@ export function NewAnalysisForm({
   );
   const [error, setError] = useState("");
   const [analysisStageIndex, setAnalysisStageIndex] = useState(0);
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -63,7 +61,7 @@ export function NewAnalysisForm({
   }, [previewUrl]);
 
   useEffect(() => {
-    if (!isPending) {
+    if (!isSubmitting) {
       setAnalysisStageIndex(0);
       return;
     }
@@ -75,7 +73,7 @@ export function NewAnalysisForm({
     }, 1400);
 
     return () => window.clearInterval(interval);
-  }, [isPending]);
+  }, [isSubmitting]);
 
   const handleFileChange = (nextFile: File | null) => {
     setFile(nextFile);
@@ -94,42 +92,58 @@ export function NewAnalysisForm({
       return;
     }
 
-    startTransition(async () => {
+    void (async () => {
+      setIsSubmitting(true);
       setError("");
-      const payload = new FormData();
-      payload.append("image", file);
-      payload.append("caseId", formState.caseId ?? "");
-      payload.append("title", formState.title);
-      payload.append("concernType", formState.concernType);
-      payload.append("area", formState.area);
-      payload.append("duration", formState.duration);
-      payload.append("skinType", formState.skinType);
-      payload.append("currentProducts", formState.currentProducts);
-      payload.append("notes", formState.notes);
-      formState.symptoms.forEach((symptom) => payload.append("symptoms", symptom));
+      try {
+        const payload = new FormData();
+        payload.append("image", file);
+        payload.append("caseId", formState.caseId ?? "");
+        payload.append("title", formState.title);
+        payload.append("concernType", formState.concernType);
+        payload.append("area", formState.area);
+        payload.append("duration", formState.duration);
+        payload.append("skinType", formState.skinType);
+        payload.append("currentProducts", formState.currentProducts);
+        payload.append("notes", formState.notes);
+        formState.symptoms.forEach((symptom) => payload.append("symptoms", symptom));
 
-      const response = await fetch("/api/analysis", {
-        method: "POST",
-        body: payload,
-      });
-      const contentType = response.headers.get("content-type") ?? "";
-      const data = contentType.includes("application/json")
-        ? await response.json()
-        : {
-            message:
-              response.status === 401
-                ? "Sign in again before uploading."
-                : "Unexpected server response during analysis.",
-          };
+        const response = await fetch("/api/analysis", {
+          method: "POST",
+          body: payload,
+        });
+        const contentType = response.headers.get("content-type") ?? "";
+        const data = contentType.includes("application/json")
+          ? await response.json()
+          : {
+              message:
+                response.status === 401
+                  ? "Sign in again before uploading."
+                  : "Unexpected server response during analysis.",
+            };
 
-      if (!response.ok) {
-        setError(data.message || "Unable to complete analysis.");
-        return;
+        if (!response.ok) {
+          setError(data.message || "Unable to complete analysis.");
+          return;
+        }
+
+        if (!data.redirectTo) {
+          setError("Analysis finished, but the results page could not be opened automatically.");
+          return;
+        }
+
+        // Full-page navigation is more reliable here than a client transition after a long upload.
+        window.location.assign(data.redirectTo);
+      } catch (submissionError) {
+        setError(
+          submissionError instanceof Error
+            ? submissionError.message
+            : "Analysis finished with a client-side error. Refresh to check saved results.",
+        );
+      } finally {
+        setIsSubmitting(false);
       }
-
-      router.push(data.redirectTo);
-      router.refresh();
-    });
+    })();
   };
 
   return (
@@ -179,8 +193,8 @@ export function NewAnalysisForm({
             </p>
             <p className="text-sm text-slate-400">Most analyses finish in about 10 to 20 seconds.</p>
           </div>
-          <Button onClick={submit} variant="teal" size="lg" disabled={isPending}>
-            {isPending ? (
+          <Button onClick={submit} variant="teal" size="lg" disabled={isSubmitting}>
+            {isSubmitting ? (
               <>
                 <LoaderCircle className="h-4 w-4 animate-spin" />
                 Analyzing
@@ -196,7 +210,7 @@ export function NewAnalysisForm({
         </CardContent>
       </Card>
 
-      {isPending ? (
+      {isSubmitting ? (
         <Card className="border-teal-100 bg-teal-50/60">
           <CardContent className="grid gap-5 px-6 py-6 lg:grid-cols-[1fr_220px] lg:items-center">
             <div className="space-y-3">
