@@ -14,7 +14,7 @@ export default async function RemindersPage() {
         <CardHeader>
           <div className="flex flex-wrap gap-2">
             <Badge variant="teal">Reminder Settings</Badge>
-            <Badge variant="default">Cron-ready weekly flow</Badge>
+            <Badge variant="default">Weekly update prompts</Badge>
           </div>
           <CardTitle className="text-3xl">Weekly reminder settings</CardTitle>
           <CardDescription>
@@ -46,4 +46,3 @@ export default async function RemindersPage() {
     </div>
   );
 }
-

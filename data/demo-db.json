@@ -11,7 +11,7 @@
     {
       "id": "case-acne-1",
       "user_id": "demo-user-1",
-      "title": "Cheek acne check-in",
+      "title": "Facial skin check-in",
       "concern_type": "acne",
       "area": "face",
       "created_at": "2025-02-01T10:00:00.000Z",
@@ -39,7 +39,7 @@
       "skin_type": "oily",
       "duration_text": "About 3 weeks",
       "current_products_text": "Foaming cleanser, light moisturizer",
-      "notes": "Breakouts concentrate on the cheeks and around the mouth.",
+      "notes": "Breakouts are concentrated in one facial area and around the mouth.",
       "created_at": "2025-02-01T10:00:00.000Z"
     },
     {

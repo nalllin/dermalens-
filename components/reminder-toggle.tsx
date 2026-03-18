@@ -51,7 +51,7 @@ export function ReminderToggle({
         <div className="space-y-1">
           <p className="text-base font-semibold text-slate-950">{title}</p>
           <p className="text-sm text-slate-500">
-            Next send: {enabled ? formatDateLabel(reminder.next_send_at) : "Paused"}
+            Next photo prompt: {enabled ? formatDateLabel(reminder.next_send_at) : "Paused"}
           </p>
         </div>
 
@@ -93,4 +93,3 @@ export function ReminderToggle({
     </div>
   );
 }
-

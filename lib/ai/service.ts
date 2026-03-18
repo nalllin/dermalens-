@@ -333,7 +333,7 @@ export async function analyzeConcern({
   try {
     return await runVisionPrompt({
       systemPrompt:
-        "You are assisting an internal dermatology demo. Return only concise JSON. Do not include markdown or medical disclaimers. Keep severity to mild, moderate, or severe.",
+        "You are assisting a skin progress tracking app. Return only concise JSON. Do not include markdown or medical disclaimers. Keep severity to mild, moderate, or severe.",
       userPrompt: `Analyze the uploaded dermatology image using this intake:
 {
   "concern_type": "${intake.concernType}",
@@ -385,7 +385,7 @@ export async function generateTreatmentSuggestion({
           content: [
             {
               type: "input_text",
-              text: "You are assisting an internal dermatology demo. Return only concise JSON with short arrays. Avoid long explanations.",
+              text: "You are assisting a skin progress tracking app. Return only concise JSON with short arrays. Avoid long explanations.",
             },
           ],
         },
@@ -449,7 +449,7 @@ export async function compareProgress({
           content: [
             {
               type: "input_text",
-              text: "You compare two dermatology follow-up images for an internal demo. Return only concise JSON. Use improved, stable, or worse.",
+              text: "You compare two dermatology follow-up images for a skin progress tracking app. Return only concise JSON. Use improved, stable, or worse.",
             },
           ],
         },

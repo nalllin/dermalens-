@@ -21,14 +21,14 @@ export default async function SignInPage() {
             Sign in to review cases, results, and weekly reminders
           </h1>
           <p>
-            If live keys are not configured, demo mode is available and seeded with example cases.
+            Sign in to keep uploads, result cards, and reminder timing in one place.
           </p>
           <div className="rounded-[28px] bg-slate-50 p-5">
             <p className="font-medium text-slate-900">What you get</p>
             <ul className="mt-3 space-y-2">
               <li>Short result cards with severity and confidence badges</li>
               <li>Saved case history and progress timeline</li>
-              <li>Reminder settings and cron-ready reminder endpoint</li>
+              <li>Reminder settings for weekly update photos</li>
             </ul>
           </div>
         </CardContent>
@@ -40,4 +40,3 @@ export default async function SignInPage() {
     </div>
   );
 }
-

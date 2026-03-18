@@ -49,7 +49,7 @@ export function SiteHeader({
                 DermaLens
               </Link>
               <p className="text-sm text-slate-500">
-                AI-assisted dermatology demo for internal testing
+                Track skin changes, routines, and follow-ups in one place
               </p>
             </div>
           </div>
@@ -120,4 +120,3 @@ export function SiteHeader({
     </header>
   );
 }
-

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Bell } from "lucide-react";
 
 import { ComparisonCard } from "@/components/comparison-card";
 import { ResultCard } from "@/components/result-card";
@@ -47,7 +48,22 @@ export default async function ResultPage({
 
       <ResultCard assessment={result.current.assessment} />
       <ComparisonCard comparison={result.comparison} />
+      <Card>
+        <CardContent className="flex flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <p className="text-base font-semibold text-slate-950">Weekly update reminder</p>
+            <p className="text-sm text-slate-500">
+              Keep this case active and upload a fresh photo next week to compare progress.
+            </p>
+          </div>
+          <Button asChild variant="secondary">
+            <Link href="/reminders">
+              Manage reminders
+              <Bell className="h-4 w-4" />
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }
-

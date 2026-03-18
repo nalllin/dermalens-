@@ -56,7 +56,7 @@ export async function POST(request: Request) {
     const concernType = pickEnum(
       formData.get("concernType"),
       concernTypes,
-      "acne",
+      "other",
     ) as ConcernType;
     const area = pickEnum(formData.get("area"), supportedAreas, "face") as SupportedArea;
     const skinType = pickEnum(
@@ -71,14 +71,18 @@ export async function POST(request: Request) {
         symptomOptions.includes(item as SymptomOption),
       );
 
+    const durationValue = String(formData.get("duration") ?? "").trim();
+    const currentProductsValue = String(formData.get("currentProducts") ?? "").trim();
+    const notesValue = String(formData.get("notes") ?? "").trim();
+
     const intake = {
       concernType,
       area,
-      duration: String(formData.get("duration") ?? "About 1 week"),
+      duration: durationValue || "Recent change",
       symptoms,
       skinType,
-      currentProducts: String(formData.get("currentProducts") ?? ""),
-      notes: String(formData.get("notes") ?? ""),
+      currentProducts: currentProductsValue,
+      notes: notesValue,
     };
 
     const caseId = String(formData.get("caseId") ?? "") || undefined;

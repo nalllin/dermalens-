@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
-import { ArrowRight, UploadCloud } from "lucide-react";
+import { ArrowRight, Bell, LoaderCircle, UploadCloud } from "lucide-react";
 
 import { ImageUploader } from "@/components/image-uploader";
 import { IntakeForm, type IntakeFormState } from "@/components/intake-form";
@@ -16,14 +16,21 @@ const steps = [
   { id: "03", title: "Analyze", description: "Save case + AI result" },
 ];
 
+const analysisStages = [
+  "Checking image quality and intake details",
+  "Reviewing visible skin patterns",
+  "Building a short routine and care summary",
+  "Saving the result and reminder schedule",
+];
+
 function buildInitialState(selectedCase?: DashboardCase | null): IntakeFormState {
   return {
     caseId: selectedCase?.case.id,
     title: selectedCase?.case.title ?? "",
-    concernType: selectedCase?.case.concern_type ?? "acne",
+    concernType: selectedCase?.case.concern_type ?? "other",
     area: selectedCase?.case.area ?? "face",
-    duration: selectedCase?.latest_entry?.duration_text ?? "About 1 week",
-    symptoms: selectedCase?.latest_entry?.symptoms_json ?? ["redness"],
+    duration: selectedCase?.latest_entry?.duration_text ?? "",
+    symptoms: selectedCase?.latest_entry?.symptoms_json ?? [],
     skinType: selectedCase?.latest_entry?.skin_type ?? "unknown",
     currentProducts: selectedCase?.latest_entry?.current_products_text ?? "",
     notes: selectedCase?.latest_entry?.notes ?? "",
@@ -44,6 +51,7 @@ export function NewAnalysisForm({
     buildInitialState(selectedCase),
   );
   const [error, setError] = useState("");
+  const [analysisStageIndex, setAnalysisStageIndex] = useState(0);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -53,6 +61,21 @@ export function NewAnalysisForm({
       }
     };
   }, [previewUrl]);
+
+  useEffect(() => {
+    if (!isPending) {
+      setAnalysisStageIndex(0);
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setAnalysisStageIndex((current) =>
+        current >= analysisStages.length - 1 ? current : current + 1,
+      );
+    }, 1400);
+
+    return () => window.clearInterval(interval);
+  }, [isPending]);
 
   const handleFileChange = (nextFile: File | null) => {
     setFile(nextFile);
@@ -152,16 +175,76 @@ export function NewAnalysisForm({
           <div className="space-y-1">
             <p className="text-base font-semibold text-slate-950">Ready to analyze</p>
             <p className="text-sm text-slate-500">
-              The result will be saved automatically and weekly tracking will stay attached to the case.
+              The result will be saved automatically and a weekly reminder will be attached to the case.
             </p>
+            <p className="text-sm text-slate-400">Most analyses finish in about 10 to 20 seconds.</p>
           </div>
           <Button onClick={submit} variant="teal" size="lg" disabled={isPending}>
-            <UploadCloud className="h-4 w-4" />
-            Run analysis
-            <ArrowRight className="h-4 w-4" />
+            {isPending ? (
+              <>
+                <LoaderCircle className="h-4 w-4 animate-spin" />
+                Analyzing
+              </>
+            ) : (
+              <>
+                <UploadCloud className="h-4 w-4" />
+                Run analysis
+                <ArrowRight className="h-4 w-4" />
+              </>
+            )}
           </Button>
         </CardContent>
       </Card>
+
+      {isPending ? (
+        <Card className="border-teal-100 bg-teal-50/60">
+          <CardContent className="grid gap-5 px-6 py-6 lg:grid-cols-[1fr_220px] lg:items-center">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-teal-800">
+                <LoaderCircle className="h-5 w-5 animate-spin" />
+                <p className="text-base font-semibold">Analyzing your photo</p>
+              </div>
+              <p className="text-sm text-teal-900">
+                {analysisStages[analysisStageIndex]}
+              </p>
+              <div className="h-2 overflow-hidden rounded-full bg-white/70">
+                <div
+                  className="h-full rounded-full bg-teal-600 transition-all duration-500"
+                  style={{
+                    width: `${((analysisStageIndex + 1) / analysisStages.length) * 100}%`,
+                  }}
+                />
+              </div>
+              <p className="text-xs uppercase tracking-[0.18em] text-teal-700">
+                Usually finishes in 10 to 20 seconds
+              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {analysisStages.map((stage, index) => (
+                  <div
+                    key={stage}
+                    className={`rounded-2xl px-3 py-3 text-sm transition ${
+                      index <= analysisStageIndex
+                        ? "bg-white text-slate-900"
+                        : "bg-white/60 text-slate-500"
+                    }`}
+                  >
+                    {stage}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-[26px] bg-white/90 p-5">
+              <div className="flex items-center gap-3 text-slate-900">
+                <Bell className="h-5 w-5 text-teal-700" />
+                <p className="text-sm font-semibold">Weekly update reminder</p>
+              </div>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                DermaLens will keep a 7-day reminder attached so the next progress photo is easy to add.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
 
       {error ? (
         <div className="rounded-[26px] border border-rose-100 bg-rose-50 px-5 py-4 text-sm text-rose-700">

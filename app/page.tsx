@@ -9,19 +9,19 @@ import { getRuntimeFlags } from "@/lib/env";
 
 const featureCards = [
   {
-    title: "Upload once, scan fast",
+    title: "Upload and review fast",
     description:
-      "Preview a skin, scalp, beard, hairline, or body-patch photo and submit a short intake in one flow.",
+      "Preview a photo, answer a few quick questions, and keep the whole flow in one screen.",
   },
   {
-    title: "Short AI output",
+    title: "Short result cards",
     description:
-      "Get likely issue, severity, confidence, routines, and treatment options in a card that scans in seconds.",
+      "See likely issue, severity, confidence, and a simple routine without long blocks of text.",
   },
   {
-    title: "Weekly follow-up",
+    title: "Weekly reminders",
     description:
-      "Track before/after changes, compare progress, and keep reminder settings tied to each case.",
+      "Keep weekly update reminders attached to each case and compare progress over time.",
   },
 ];
 
@@ -43,16 +43,16 @@ export default async function Home() {
           <CardContent className="grid gap-10 px-6 py-8 sm:px-8 sm:py-10">
             <div className="space-y-5">
               <div className="flex flex-wrap gap-2">
-                <Badge variant="teal">Internal testing MVP</Badge>
-                {flags.demoData ? <Badge variant="blue">Demo data ready</Badge> : null}
-                {flags.mockAI ? <Badge variant="amber">Mock AI fallback active</Badge> : null}
+                <Badge variant="teal">Skin progress tracker</Badge>
+                {flags.demoData ? <Badge variant="blue">Demo data</Badge> : null}
+                {flags.mockAI ? <Badge variant="amber">Mock AI</Badge> : null}
               </div>
               <div className="max-w-2xl space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-                  Track skin progress with AI-assisted analysis
+                  Track skin progress with clear photo check-ins
                 </h1>
                 <p className="max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-                  Upload a photo, get concise treatment suggestions, and follow weekly progress updates.
+                  Upload a photo, get a short result, and stay on top of weekly update reminders.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -89,16 +89,16 @@ export default async function Home() {
               <Sparkles className="h-4 w-4" />
               <span className="text-sm font-medium">Sample output</span>
             </div>
-            <CardTitle>Mild inflammatory acne</CardTitle>
+            <CardTitle>Visible irritation pattern</CardTitle>
             <CardDescription>
-              Small inflamed bumps and comedone-like lesions visible on cheek and forehead.
+              Dryness and redness appear concentrated in one area and look suitable for a short home-care plan.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-wrap gap-2">
-              <Badge variant="teal">Confidence 86%</Badge>
+              <Badge variant="teal">Confidence 82%</Badge>
               <Badge variant="blue">Severity mild</Badge>
-              <Badge variant="default">Observation 2 to 4 weeks</Badge>
+              <Badge variant="default">Review in 1 to 2 weeks</Badge>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-3xl bg-slate-50 p-4">
@@ -106,23 +106,22 @@ export default async function Home() {
                   Suggested options
                 </p>
                 <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                  <li>benzoyl peroxide 2.5% gel</li>
-                  <li>adapalene at night</li>
-                  <li>non-comedogenic moisturizer</li>
+                  <li>barrier repair cream</li>
+                  <li>gentle cleanser</li>
+                  <li>fragrance-free moisturizer</li>
                 </ul>
               </div>
               <div className="rounded-3xl bg-slate-50 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-500">AM routine</p>
                 <ul className="mt-3 space-y-2 text-sm text-slate-700">
                   <li>gentle cleanser</li>
-                  <li>benzoyl peroxide</li>
                   <li>moisturizer</li>
                   <li>sunscreen</li>
                 </ul>
               </div>
             </div>
             <div className="rounded-3xl border border-teal-100 bg-teal-50/70 p-4 text-sm text-teal-900">
-              If worsening after 3 weeks, seek dermatologist review.
+              Set a reminder and compare a new photo next week.
             </div>
           </CardContent>
         </Card>

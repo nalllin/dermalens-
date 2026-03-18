@@ -77,7 +77,7 @@ export function IntakeForm({
           <Input
             id="title"
             value={value.title}
-            placeholder="Cheek acne check-in"
+            placeholder="Weekly skin update"
             onChange={(event) => update("title", event.target.value)}
           />
         </div>
@@ -196,4 +196,3 @@ export function IntakeForm({
     </div>
   );
 }
-

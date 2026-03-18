@@ -32,7 +32,7 @@ export default async function DashboardPage() {
                 Welcome back, {user.name}
               </h1>
               <p className="max-w-2xl text-sm leading-6 text-slate-600">
-                Review saved cases, upload weekly progress photos, and keep reminder timing visible in one place.
+                Review saved cases, upload follow-up photos, and keep reminder timing visible in one place.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -81,7 +81,7 @@ export default async function DashboardPage() {
           <div>
             <h2 className="text-xl font-semibold text-slate-950">Your cases</h2>
             <p className="text-sm text-slate-500">
-              Clean snapshot of latest severity, trend, and reminder timing.
+              Latest severity, trend, and reminder timing at a glance.
             </p>
           </div>
         </div>
@@ -181,6 +181,23 @@ export default async function DashboardPage() {
           </Card>
         )}
       </section>
+
+      <Card>
+        <CardContent className="flex flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <p className="text-base font-semibold text-slate-950">Keep update reminders on</p>
+            <p className="text-sm text-slate-500">
+              Each saved case can prompt a weekly progress photo so comparisons stay consistent.
+            </p>
+          </div>
+          <Button asChild variant="secondary">
+            <Link href="/reminders">
+              Review reminder settings
+              <Bell className="h-4 w-4" />
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

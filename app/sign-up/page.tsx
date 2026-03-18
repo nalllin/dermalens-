@@ -16,7 +16,7 @@ export default async function SignUpPage() {
     <div className="grid gap-6 py-6 lg:grid-cols-[0.95fr_1.05fr]">
       <Card>
         <CardContent className="space-y-4 px-6 py-8 text-sm leading-7 text-slate-600">
-          <p className="text-xs uppercase tracking-[0.24em] text-teal-700">New workspace</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-teal-700">Get started</p>
           <h1 className="text-3xl font-semibold tracking-tight text-slate-950">
             Create a DermaLens account for case tracking and weekly follow-up
           </h1>
@@ -41,4 +41,3 @@ export default async function SignUpPage() {
     </div>
   );
 }
-

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | DermaLens",
   },
   description:
-    "AI-assisted dermatology tracking demo for concise photo analysis and weekly follow-ups.",
+    "Simple skin progress tracking with photo analysis, concise care suggestions, and weekly follow-ups.",
 };
 
 export default async function RootLayout({
@@ -46,8 +46,8 @@ export default async function RootLayout({
           </main>
           <footer className="border-t border-slate-200/80 bg-white/80">
             <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-              <p>DermaLens internal MVP for AI-assisted dermatology tracking.</p>
-              <p>Use demo mode when Supabase or OpenAI keys are missing.</p>
+              <p>DermaLens helps track visible skin progress with simple weekly check-ins.</p>
+              <p>Weekly reminders and follow-up uploads stay attached to each case.</p>
             </div>
           </footer>
         </div>
