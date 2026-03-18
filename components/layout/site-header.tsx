@@ -45,7 +45,9 @@ export function SiteHeader({
               <Link href="/" className="text-lg font-semibold tracking-tight text-slate-950">
                 DermaLens
               </Link>
-              <p className="text-sm text-slate-500">Skin progress tracking made simple</p>
+              <p className="text-sm text-slate-500">
+                AI-assisted dermatology analysis and follow-up tracking
+              </p>
             </div>
           </div>
 
