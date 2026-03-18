@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Activity, FlaskConical, LogOut, ScanSearch } from "lucide-react";
 import { useTransition } from "react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { AppUser } from "@/lib/types";
@@ -19,10 +18,8 @@ const links = [
 
 export function SiteHeader({
   user,
-  flags,
 }: {
   user: AppUser | null;
-  flags: { demoData: boolean; mockAI: boolean };
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -48,21 +45,16 @@ export function SiteHeader({
               <Link href="/" className="text-lg font-semibold tracking-tight text-slate-950">
                 DermaLens
               </Link>
-              <p className="text-sm text-slate-500">
-                Track skin changes, routines, and follow-ups in one place
-              </p>
+              <p className="text-sm text-slate-500">Skin progress tracking made simple</p>
             </div>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="flex flex-wrap gap-2">
-              {flags.demoData ? <Badge variant="blue">Demo data</Badge> : null}
-              {flags.mockAI ? <Badge variant="amber">Mock AI</Badge> : null}
-            </div>
-
             {user ? (
               <div className="flex items-center gap-2">
-                <Badge variant="teal">{user.name}</Badge>
+                <div className="rounded-full bg-teal-50 px-3 py-1 text-sm font-medium text-teal-700">
+                  {user.name}
+                </div>
                 <Button
                   variant="secondary"
                   size="sm"

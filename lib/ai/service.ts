@@ -278,7 +278,7 @@ function buildMockProgress(
     trend: "stable",
     change_summary:
       "Overall appearance looks similar to the previous upload with no major shift.",
-    recommendation: "Stay consistent and review again in 1 week.",
+    recommendation: "We will remind you to upload another photo in 1 week.",
   });
 }
 

@@ -27,13 +27,11 @@ export default async function TimelinePage({
           <div className="flex flex-wrap gap-2">
             <Badge variant="teal">Progress Timeline</Badge>
             <Badge variant="default">
-              Next reminder {details.reminder ? formatDateLabel(details.reminder.next_send_at) : "not set"}
+              Next check-in {details.reminder ? formatDateLabel(details.reminder.next_send_at) : "not set"}
             </Badge>
           </div>
           <CardTitle className="text-3xl">{details.case.title}</CardTitle>
-          <CardDescription>
-            Review every saved upload, compare weekly changes, and keep follow-up cadence consistent.
-          </CardDescription>
+          <CardDescription>All saved uploads and changes for this case.</CardDescription>
         </CardHeader>
         <CardContent />
       </Card>
@@ -43,4 +41,3 @@ export default async function TimelinePage({
     </div>
   );
 }
-

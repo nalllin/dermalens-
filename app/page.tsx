@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getViewer } from "@/lib/auth";
-import { getRuntimeFlags } from "@/lib/env";
 
 const featureCards = [
   {
@@ -34,7 +33,6 @@ const steps = [
 
 export default async function Home() {
   const viewer = await getViewer();
-  const flags = getRuntimeFlags();
 
   return (
     <div className="space-y-8 pb-6 pt-2">
@@ -44,15 +42,13 @@ export default async function Home() {
             <div className="space-y-5">
               <div className="flex flex-wrap gap-2">
                 <Badge variant="teal">Skin progress tracker</Badge>
-                {flags.demoData ? <Badge variant="blue">Demo data</Badge> : null}
-                {flags.mockAI ? <Badge variant="amber">Mock AI</Badge> : null}
               </div>
               <div className="max-w-2xl space-y-4">
                 <h1 className="text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
                   Track skin progress with clear photo check-ins
                 </h1>
                 <p className="max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-                  Upload a photo, get a short result, and stay on top of weekly update reminders.
+                  Upload a photo, get a short result, and return for simple weekly updates.
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
@@ -121,7 +117,7 @@ export default async function Home() {
               </div>
             </div>
             <div className="rounded-3xl border border-teal-100 bg-teal-50/70 p-4 text-sm text-teal-900">
-              Set a reminder and compare a new photo next week.
+              Save the case and upload another photo next week for a quick comparison.
             </div>
           </CardContent>
         </Card>

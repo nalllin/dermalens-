@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { SiteHeader } from "@/components/layout/site-header";
 import { getViewer } from "@/lib/auth";
-import { getRuntimeFlags } from "@/lib/env";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const viewer = await getViewer();
-  const flags = getRuntimeFlags();
 
   return (
     <html lang="en">
@@ -40,7 +38,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-background font-sans text-foreground antialiased`}
       >
         <div className="min-h-screen">
-          <SiteHeader user={viewer.user} flags={flags} />
+          <SiteHeader user={viewer.user} />
           <main className="mx-auto w-full max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8">
             {children}
           </main>

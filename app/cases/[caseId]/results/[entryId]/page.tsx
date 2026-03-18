@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { requireViewer } from "@/lib/auth";
 import { getResultView } from "@/lib/data/repository";
+import { isResendConfigured } from "@/lib/env";
+import { formatDateLabel } from "@/lib/utils";
 
 export default async function ResultPage({
   params,
@@ -17,10 +19,15 @@ export default async function ResultPage({
 }) {
   const { user } = await requireViewer();
   const result = await getResultView(user.id, params.caseId, params.entryId);
+  const emailRemindersEnabled = isResendConfigured();
 
   if (!result || !result.current?.assessment) {
     notFound();
   }
+
+  const nextReminderLabel = result.reminder?.enabled
+    ? formatDateLabel(result.reminder.next_send_at)
+    : null;
 
   return (
     <div className="space-y-6">
@@ -51,9 +58,16 @@ export default async function ResultPage({
       <Card>
         <CardContent className="flex flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <p className="text-base font-semibold text-slate-950">Weekly update reminder</p>
+            <p className="text-base font-semibold text-slate-950">Next check-in saved</p>
             <p className="text-sm text-slate-500">
-              Keep this case active and upload a fresh photo next week to compare progress.
+              {nextReminderLabel
+                ? `We will remind you on ${nextReminderLabel} to upload another photo.`
+                : "This case is ready for the next weekly update."}
+            </p>
+            <p className="text-sm text-slate-500">
+              {emailRemindersEnabled
+                ? "Check your email around that time for the reminder."
+                : "You can adjust reminder timing from the reminders page anytime."}
             </p>
           </div>
           <Button asChild variant="secondary">

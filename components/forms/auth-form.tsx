@@ -87,8 +87,8 @@ export function AuthForm({
         <CardTitle>{mode === "sign-in" ? "Sign in" : "Create account"}</CardTitle>
         <CardDescription>
           {mode === "sign-in"
-            ? "Access dashboard, cases, and weekly progress tracking."
-            : "Create a DermaLens workspace for new analyses and reminders."}
+            ? "Access your saved cases and follow-up reminders."
+            : "Set up your account to save results and return for the next update."}
         </CardDescription>
       </CardHeader>
       <CardContent>
