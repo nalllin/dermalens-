@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { requireViewer } from "@/lib/auth";
+import { getViewer } from "@/lib/auth";
 import { updateReminder } from "@/lib/data/repository";
 
 export async function PATCH(
@@ -8,7 +8,16 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   try {
-    const { user } = await requireViewer();
+    const viewer = await getViewer();
+
+    if (!viewer.user) {
+      return NextResponse.json(
+        { success: false, message: "Sign in to update reminders." },
+        { status: 401 },
+      );
+    }
+
+    const { user } = viewer;
     const body = await request.json();
     const reminder = await updateReminder({
       userId: user.id,
@@ -28,4 +37,3 @@ export async function PATCH(
     );
   }
 }
-

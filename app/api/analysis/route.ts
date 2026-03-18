@@ -5,7 +5,7 @@ import {
   compareProgress,
   generateTreatmentSuggestion,
 } from "@/lib/ai/service";
-import { requireViewer } from "@/lib/auth";
+import { getViewer } from "@/lib/auth";
 import { getCaseDetails, saveAnalysis } from "@/lib/data/repository";
 import {
   concernTypes,
@@ -33,7 +33,16 @@ function pickEnum<T extends readonly string[]>(
 
 export async function POST(request: Request) {
   try {
-    const { user } = await requireViewer();
+    const viewer = await getViewer();
+
+    if (!viewer.user) {
+      return NextResponse.json(
+        { message: "Sign in to run analysis." },
+        { status: 401 },
+      );
+    }
+
+    const { user } = viewer;
     const formData = await request.formData();
     const image = formData.get("image");
 
@@ -157,4 +166,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

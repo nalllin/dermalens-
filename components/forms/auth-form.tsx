@@ -133,18 +133,19 @@ export function AuthForm({
               {mode === "sign-in" ? "Sign in" : "Create account"}
             </Button>
 
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={isPending}
-              onClick={continueDemo}
-            >
-              Continue in demo mode
-            </Button>
+            {demoMode ? (
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={isPending}
+                onClick={continueDemo}
+              >
+                Continue in demo mode
+              </Button>
+            ) : null}
           </div>
         </form>
       </CardContent>
     </Card>
   );
 }
-

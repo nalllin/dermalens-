@@ -89,8 +89,15 @@ export function NewAnalysisForm({
         method: "POST",
         body: payload,
       });
-
-      const data = await response.json();
+      const contentType = response.headers.get("content-type") ?? "";
+      const data = contentType.includes("application/json")
+        ? await response.json()
+        : {
+            message:
+              response.status === 401
+                ? "Sign in again before uploading."
+                : "Unexpected server response during analysis.",
+          };
 
       if (!response.ok) {
         setError(data.message || "Unable to complete analysis.");
@@ -164,4 +171,3 @@ export function NewAnalysisForm({
     </div>
   );
 }
-

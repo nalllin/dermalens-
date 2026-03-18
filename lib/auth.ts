@@ -176,6 +176,14 @@ export async function signUp({
 }
 
 export async function continueInDemo() {
+  if (!shouldUseDemoData()) {
+    return {
+      success: false,
+      redirectTo: "/sign-in",
+      message: "Demo mode is disabled for this deployment.",
+    };
+  }
+
   const user = await ensureDemoUser("demo@dermalens.local", "Demo User");
   setDemoSession(user.id);
   return {
