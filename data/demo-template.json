@@ -1,0 +1,162 @@
+{
+  "users": [
+    {
+      "id": "demo-user-1",
+      "email": "demo@dermalens.local",
+      "name": "Demo User",
+      "created_at": "2025-01-05T10:00:00.000Z"
+    }
+  ],
+  "cases": [
+    {
+      "id": "case-acne-1",
+      "user_id": "demo-user-1",
+      "title": "Cheek acne check-in",
+      "concern_type": "acne",
+      "area": "face",
+      "created_at": "2025-02-01T10:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "case-dandruff-1",
+      "user_id": "demo-user-1",
+      "title": "Scalp flaking review",
+      "concern_type": "dandruff",
+      "area": "scalp",
+      "created_at": "2025-02-10T10:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "case_entries": [
+    {
+      "id": "entry-acne-1",
+      "case_id": "case-acne-1",
+      "symptoms_json": ["redness", "pus", "pain"],
+      "skin_type": "oily",
+      "duration_text": "About 3 weeks",
+      "current_products_text": "Foaming cleanser, light moisturizer",
+      "notes": "Breakouts concentrate on the cheeks and around the mouth.",
+      "created_at": "2025-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "entry-acne-2",
+      "case_id": "case-acne-1",
+      "symptoms_json": ["redness"],
+      "skin_type": "oily",
+      "duration_text": "Week 4 follow-up",
+      "current_products_text": "Benzoyl peroxide gel, moisturizer, sunscreen",
+      "notes": "Less soreness and fewer active bumps this week.",
+      "created_at": "2025-02-08T10:00:00.000Z"
+    },
+    {
+      "id": "entry-dandruff-1",
+      "case_id": "case-dandruff-1",
+      "symptoms_json": ["flaking", "itching", "dryness"],
+      "skin_type": "unknown",
+      "duration_text": "About 2 months",
+      "current_products_text": "Regular shampoo every other day",
+      "notes": "Visible flakes along the crown and around the hairline.",
+      "created_at": "2025-02-10T10:00:00.000Z"
+    }
+  ],
+  "uploaded_images": [
+    {
+      "id": "image-acne-1",
+      "case_entry_id": "entry-acne-1",
+      "image_url": "/demo-samples/case-acne-initial.svg",
+      "captured_at": "2025-02-01T10:00:00.000Z",
+      "image_quality_score": 0.89
+    },
+    {
+      "id": "image-acne-2",
+      "case_entry_id": "entry-acne-2",
+      "image_url": "/demo-samples/case-acne-week1.svg",
+      "captured_at": "2025-02-08T10:00:00.000Z",
+      "image_quality_score": 0.92
+    },
+    {
+      "id": "image-dandruff-1",
+      "case_entry_id": "entry-dandruff-1",
+      "image_url": "/demo-samples/case-dandruff-initial.svg",
+      "captured_at": "2025-02-10T10:00:00.000Z",
+      "image_quality_score": 0.88
+    }
+  ],
+  "ai_assessments": [
+    {
+      "id": "assessment-acne-1",
+      "case_entry_id": "entry-acne-1",
+      "likely_issue": "Inflammatory acne flare",
+      "confidence": 0.84,
+      "severity": "moderate",
+      "reason_summary": "Multiple inflamed papules and a few pustules are visible across the cheek area.",
+      "suggested_medications": ["benzoyl peroxide 2.5% gel", "adapalene at night"],
+      "suggested_creams": ["non-comedogenic moisturizer", "broad-spectrum sunscreen"],
+      "am_routine": ["gentle cleanser", "benzoyl peroxide", "moisturizer", "sunscreen"],
+      "pm_routine": ["gentle cleanser", "adapalene", "moisturizer"],
+      "observation_window": "2 to 4 weeks",
+      "escalation_note": "If more painful cysts appear, seek dermatologist review sooner.",
+      "created_at": "2025-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "assessment-acne-2",
+      "case_entry_id": "entry-acne-2",
+      "likely_issue": "Mild inflammatory acne",
+      "confidence": 0.88,
+      "severity": "mild",
+      "reason_summary": "Redness is lighter and the number of active inflamed bumps appears lower than baseline.",
+      "suggested_medications": ["benzoyl peroxide 2.5% gel", "adapalene at night"],
+      "suggested_creams": ["non-comedogenic moisturizer", "broad-spectrum sunscreen"],
+      "am_routine": ["gentle cleanser", "benzoyl peroxide", "moisturizer", "sunscreen"],
+      "pm_routine": ["gentle cleanser", "adapalene", "moisturizer"],
+      "observation_window": "2 to 4 weeks",
+      "escalation_note": "If new painful lesions return, arrange dermatologist review.",
+      "created_at": "2025-02-08T10:00:00.000Z"
+    },
+    {
+      "id": "assessment-dandruff-1",
+      "case_entry_id": "entry-dandruff-1",
+      "likely_issue": "Seborrheic dermatitis / dandruff",
+      "confidence": 0.82,
+      "severity": "moderate",
+      "reason_summary": "Diffuse white flaking is visible along the scalp part and frontal hairline with mild irritation.",
+      "suggested_medications": ["ketoconazole shampoo", "salicylic acid scalp treatment"],
+      "suggested_creams": ["light scalp serum", "fragrance-free conditioner on lengths only"],
+      "am_routine": ["targeted shampoo", "rinse thoroughly", "light scalp serum"],
+      "pm_routine": ["scalp check", "avoid heavy oils", "clean pillowcase"],
+      "observation_window": "2 to 3 weeks",
+      "escalation_note": "If plaques thicken or shedding increases, get a scalp exam.",
+      "created_at": "2025-02-10T10:00:00.000Z"
+    }
+  ],
+  "progress_summaries": [
+    {
+      "id": "progress-acne-1",
+      "case_id": "case-acne-1",
+      "current_entry_id": "entry-acne-2",
+      "previous_entry_id": "entry-acne-1",
+      "trend": "improved",
+      "change_summary": "Redness reduced slightly and active lesions appear fewer than the previous upload.",
+      "recommendation": "Continue the current routine for 1 more week.",
+      "created_at": "2025-02-08T10:00:00.000Z"
+    }
+  ],
+  "reminders": [
+    {
+      "id": "reminder-acne-1",
+      "case_id": "case-acne-1",
+      "frequency_days": 7,
+      "next_send_at": "2030-04-14T09:00:00.000Z",
+      "enabled": true,
+      "channel": "email"
+    },
+    {
+      "id": "reminder-dandruff-1",
+      "case_id": "case-dandruff-1",
+      "frequency_days": 7,
+      "next_send_at": "2030-04-16T09:00:00.000Z",
+      "enabled": true,
+      "channel": "email"
+    }
+  ]
+}
